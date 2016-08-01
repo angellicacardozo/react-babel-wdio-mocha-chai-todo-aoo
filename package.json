@@ -6,7 +6,7 @@
   "scripts": {
     "unit-test": "mocha --opts ./mocha.opts",
     "unit-test:watch": "mocha --opts ./mocha.opts --watch --reporter min",
-    "e2e-test": "wdio ./wdio.conf.js",
+    "e2e-test": "./node_modules/.bin/wdio wdio.conf.js",
     "start-selenium": "./node_modules/.bin/selenium-standalone start"
   },
   "author": "",
