@@ -19,15 +19,40 @@ describe("Todo List Test Suite", function(){
    	it("should click on the add todo button and new todo be presented", function() {
    		var todoAuthor="Author";
    		var todoText="My newest todo ...";
-
    		var expectedResult= todoAuthor + ": " + todoText;
+   		var todoRow=browser.element(".todo-row:first-child");
+   		var todoRowValue='';
 
-	 	return browser
+		browser
+    	.url("http://localhost:3000")
+    	.setValue("#author", todoAuthor)
+    	.setValue("#body", todoText)
+    	.click("#add");
+
+	    todoRow.waitForExist(5000);
+
+	    return browser
+			  .getText(".todo-row:first-child > .todo-data")
+			  .should.equal(expectedResult);
+ 	});
+ 	describe("When removing a To Do", function() {
+ 		it("should start with 2 items on the list", function() {
+	   		var todoRow=browser.element(".todo-row:first-child");
+
+		    todoRow.waitForExist(5000);
+
+			return browser
 	    	.url("http://localhost:3000")
-	    	.setValue("#author", todoAuthor)
-	    	.setValue("#body", todoText)
-	    	.click("#add")
-	    	.getText(".todo-row:first-child")
-	    	.should.eventually.be.equal(expectedResult);
+	    	.elements(".todo-row")
+	   		.value.length.should.be.equal(2);
+ 		});
+ 		it("should present 1 item when 1 item of 2 is removed", function() {
+ 			return browser
+ 				.url("http://localhost:3000")
+ 				.click(".todo-row:first-child > input[type='checkbox']")
+ 				.click("#remove")
+ 				.elements(".todo-row")
+ 				.value.length.should.be.equal(1);
+ 		});
  	});
 });

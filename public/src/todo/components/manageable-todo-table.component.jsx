@@ -1,7 +1,8 @@
 var ManageableTodoTable= React.createClass({
 	getInitialState: function() {
 		return {
-			data: []
+			data: [],
+			checked: []
 		};
 	},
 	handleTodoSubmit: function(todo) {
@@ -10,6 +11,9 @@ var ManageableTodoTable= React.createClass({
 			data: todo
 		});
 	},
+	handleTodoRemove: function(todos) {
+		// remove todos from data array
+	},
 	componentDidMount: function() {
 		// ...
 	},
@@ -17,7 +21,7 @@ var ManageableTodoTable= React.createClass({
 		return (
 			<div>
 				<CreateBar onTodoSubmit={this.handleTodoSubmit} />
-				<TodoTable data={this.props.data} />
+				<TodoTable data={this.props.data} checked={this.props.checked} onTodoRemove={this.handleTodoRemove} />
 			</div>
 		);
 	}
